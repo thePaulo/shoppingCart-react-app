@@ -10,10 +10,11 @@ export default function Header(props) {
       </div>
       <div>
         <img
-          class="prof_img"
+          className="prof_img"
+          alt="userProfile"
           src="https://www.w3schools.com/howto/img_avatar.png"
         ></img>
-        <a href="#">John Doe</a>
+        <a href="/#">John Doe</a>
       </div>
     </header>
   );
