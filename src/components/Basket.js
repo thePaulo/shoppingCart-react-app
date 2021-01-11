@@ -5,8 +5,16 @@ export default function Basket(props) {
   const [shippingPrice, setShipping] = useState(100);
 
   const { cartItems, onAdd, onRemove } = props;
-  const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
+
+  const [itemsPrice, setItemsPrice] = useState(0);
+  //const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   const totalPrice = itemsPrice + shippingPrice;
+
+  const [formData, setFormData] = useState();
+
+  useEffect(() => {
+    //setItemsPrice(cartItems.reduce((a, c) => a + c.price * c.qty, 0));
+  }, []);
 
   useEffect(() => {
     var count = 0;
@@ -14,8 +22,18 @@ export default function Basket(props) {
       count = count + cartItems[key].qty;
       //console.log(cartItems[key].qty);
     });
-    console.clear();
+    //console.clear();
     console.log(count);
+
+    formData === "#30OFF"
+      ? setItemsPrice(cartItems.reduce((a, c) => a + c.price * c.qty, 0) * 0.3)
+      : setItemsPrice(cartItems.reduce((a, c) => a + c.price * c.qty, 0));
+
+    formData === "#100DOLLARS"
+      ? setItemsPrice(cartItems.reduce((a, c) => a + c.price * c.qty, 0) * 0.3)
+      : setItemsPrice(cartItems.reduce((a, c) => a + c.price * c.qty, 0));
+
+    //setItemsPrice(cartItems.reduce((a, c) => a + c.price * c.qty, 0));
 
     if (itemsPrice > 400) {
       setShipping(0);
@@ -27,6 +45,16 @@ export default function Basket(props) {
       setShipping(10 + Math.floor(count) * 7);
     }
   });
+
+  const onSubmit = (data) => {
+    //data.preventDefault();
+    console.log(data);
+    return false;
+  };
+
+  const onChange = (data) => {
+    setFormData(data);
+  };
 
   return (
     <aside className="block col-1">
@@ -53,11 +81,20 @@ export default function Basket(props) {
       ))}
       {cartItems.lenght !== 0 && (
         <>
-          <div className="discount-code">
-            <input placeholder="Discount code" className="col-2"></input>
-            <button className="col-1">
-              <strong>Apply</strong>
-            </button>
+          <div>
+            <form className="discount-code">
+              <input
+                onInput={(e) => setFormData(e.target.value)}
+                //onChange={onChange}
+                name="inputData"
+                placeholder="Discount code"
+                className="col-2"
+                value={formData}
+              ></input>
+              <button className="col-1">
+                <strong>Apply</strong>
+              </button>
+            </form>
           </div>
           <hr></hr>
           <div className="row">
