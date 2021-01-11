@@ -1,10 +1,32 @@
 import React from "react";
+import { useState, useEffect } from "react";
 
 export default function Basket(props) {
+  const [shippingPrice, setShipping] = useState(100);
+
   const { cartItems, onAdd, onRemove } = props;
   const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
-  const shippingPrice = 100;
   const totalPrice = itemsPrice + shippingPrice;
+
+  useEffect(() => {
+    var count = 0;
+    Object.keys(cartItems).map(function (key, index) {
+      count = count + cartItems[key].qty;
+      //console.log(cartItems[key].qty);
+    });
+    console.clear();
+    console.log(count);
+
+    if (itemsPrice > 400) {
+      setShipping(0);
+    } else if (count <= 10) {
+      setShipping(30);
+    } else {
+      count = count - 10;
+      count = count / 5;
+      setShipping(10 + Math.floor(count) * 7);
+    }
+  });
 
   return (
     <aside className="block col-1">
@@ -32,8 +54,8 @@ export default function Basket(props) {
       {cartItems.lenght !== 0 && (
         <>
           <div className="discount-code">
-            <input placeholder="Discount code" class="col-2"></input>
-            <button class="col-1">
+            <input placeholder="Discount code" className="col-2"></input>
+            <button className="col-1">
               <strong>Apply</strong>
             </button>
           </div>
