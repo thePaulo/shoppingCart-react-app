@@ -1,13 +1,26 @@
-const getData = () => {
-  console.log("ji");
-  var xhr = new XMLHttpRequest();
-  xhr.open(
-    "GET",
-    "https://shielded-wildwood-82973.herokuapp.com/products.json"
-  );
+async function getData() {
+  try {
+    const response1 = await fetch(
+      "https://shielded-wildwood-82973.herokuapp.com/products.json"
+    );
 
-  console.log(xhr.responseText);
-};
+    const data1 = await response1.json();
+    const [banana, apple, orange, mango] = Object.entries(data1)[0][1];
+    const products = [banana, apple, orange, mango];
+    console.log(products);
+
+    const response2 = await fetch(
+      "https://shielded-wildwood-82973.herokuapp.com/vouchers.json"
+    );
+    const data2 = await response2.json();
+    const [a, b, c] = Object.entries(data2)[0][1];
+    const vouchers = [a, b, c];
+
+    console.log(vouchers);
+  } catch {
+    alert("API endpoint wasn't reached, try refreshing the webpage");
+  }
+}
 
 const data = {
   products: [
@@ -46,5 +59,5 @@ const data = {
   ],
 };
 
-getData();
+getData(); //data should be sent through here...
 export default data;
