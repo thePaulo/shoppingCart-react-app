@@ -15,7 +15,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Launches the test runner in the interactive watch mode.
 
-Ps: The UI test with puppeteer might timeout due to API fetch error, then it might need to be re-runned to see it clearly passing. here's an image showing it done.
+Ps: The UI test with puppeteer might timeout due to API fetch error, then it might need to be re-runned to see it clearly passing. here's an image showing it when it didn't bug it out due to API error and all the tests succeeding.
 ![alt text](https://github.com/thePaulo/codeminer-test-frontend/blob/main/passing%20tests.PNG?raw=true)
 
 ### About the project
