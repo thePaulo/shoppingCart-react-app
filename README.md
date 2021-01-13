@@ -15,6 +15,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Launches the test runner in the interactive watch mode.
 
+Ps: The UI test with puppeteer might timeout due to API fetch error, then it might need to be re-runned to see it clearly passing. here's an image showing it done.
+![alt text](https://github.com/thePaulo/codeminer-test-frontend/blob/main/passing%20tests.PNG?raw=true)
+
 ### About the project
 
 This site allows you to buy items from the shopping cart, and on the shopping cart, there's an option to put
