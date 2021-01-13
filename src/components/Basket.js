@@ -2,29 +2,21 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 export default function Basket(props) {
-  const [shippingPrice, setShipping] = useState(100);
+  const [shippingPrice, setShipping] = useState(30);
 
   const { cartItems, onAdd, onRemove } = props;
 
   const [itemsPrice, setItemsPrice] = useState(0);
-  //const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
-  //const totalPrice = itemsPrice + shippingPrice;
   const [discount, setDiscount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [formData, setFormData] = useState();
 
   useEffect(() => {
-    //setItemsPrice(cartItems.reduce((a, c) => a + c.price * c.qty, 0));
-  }, []);
-
-  useEffect(() => {
     var count = 0;
     Object.keys(cartItems).map(function (key, index) {
       count = count + cartItems[key].qty;
     });
-    //console.clear();
-    console.log(count);
 
     if (formData === "#30OFF") {
       setItemsPrice(cartItems.reduce((a, c) => a + c.price * c.qty, 0) * 0.7);
@@ -34,15 +26,7 @@ export default function Basket(props) {
       setDiscount(0);
     }
 
-    /*
-    formData === "#30OFF"
-      ? setItemsPrice(cartItems.reduce((a, c) => a + c.price * c.qty, 0) * 0.3)
-      : setItemsPrice(cartItems.reduce((a, c) => a + c.price * c.qty, 0));
-      */
-
     if (formData === "#SHIPIT" && itemsPrice >= 300.5) {
-      //changeMyShipping(shippingPrice, setShipping(0));
-      //setDiscount(shippingPrice);
       setDiscount(shippingPrice);
       console.log("check shippin" + shippingPrice);
       setShipping(0);
@@ -70,15 +54,6 @@ export default function Basket(props) {
     } else {
       setTotalPrice(itemsPrice + shippingPrice);
     }
-    /*
-    formData === "#100DOLLARS"
-      ? setTotalPrice(
-          itemsPrice + shippingPrice - 100 <= 0
-            ? 0
-            : itemsPrice + shippingPrice - 100
-        )
-      : setTotalPrice(itemsPrice + shippingPrice);
-      */
   });
 
   return (
@@ -114,6 +89,7 @@ export default function Basket(props) {
                 placeholder="Discount code"
                 className="col-2"
                 value={formData}
+                id="codeInput"
               ></input>
               <button className="col-1">
                 <strong>Apply</strong>
@@ -123,17 +99,23 @@ export default function Basket(props) {
           <hr></hr>
           <div className="row">
             <div className="col-2">Subtotal</div>
-            <div className="col-1 text-right">{itemsPrice.toFixed(2)}</div>
+            <div className="col-1 text-right" id="subtotal">
+              {itemsPrice.toFixed(2)}
+            </div>
           </div>
           <hr></hr>
           <div className="row">
             <div className="col-2">Shipping</div>
-            <div className="col-1 text-right">{shippingPrice.toFixed(2)}</div>
+            <div className="col-1 text-right" id="shipping">
+              {shippingPrice.toFixed(2)}
+            </div>
           </div>
           <hr></hr>
           <div className="row">
             <div className="col-2">Discount</div>
-            <div className="col-1 text-right">{discount.toFixed(2)}</div>
+            <div className="col-1 text-right" id="discount">
+              {discount.toFixed(2)}
+            </div>
           </div>
           <hr></hr>
           <div className="row">
@@ -141,7 +123,7 @@ export default function Basket(props) {
               <strong>Total</strong>
             </div>
             <div className="col-1 text-right">
-              <strong>{totalPrice.toFixed(2)}</strong>
+              <strong id="totalPrice">{totalPrice.toFixed(2)}</strong>
             </div>
           </div>
           <hr />
